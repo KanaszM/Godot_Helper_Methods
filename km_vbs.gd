@@ -1,5 +1,5 @@
 # This function will create a .vbs script that will convert the excel file specified at path _source_path to the destination dir _destination_dir
-as the file type specified in the _conversion_type argument. The default number 62 represents the UTF8 CSV file format.
+# as the file type specified in the _conversion_type argument. The default number 62 represents the UTF8 CSV file format.
 static func Convert_Excel_File(_source_path: String, _destination_dir: String, _conversion_type: int = 62) -> bool:
 	var _result: bool = false
 	var _valid_excel_extensions: PoolStringArray = ["xls", "xlsx", "xlsm", "csv"]
