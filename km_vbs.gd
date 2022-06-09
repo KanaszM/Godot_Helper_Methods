@@ -2,7 +2,7 @@
 # as the file type specified in the _conversion_type argument. The default number 62 represents the UTF8 CSV file format.
 static func Convert_Excel_File(_source_path: String, _destination_dir: String, _conversion_type: int = 62) -> bool:
 	var _result: bool = false
-	var _valid_excel_extensions: PoolStringArray = ["xls", "xlsx", "xlsm", "csv"]
+	var _valid_excel_extensions: PoolStringArray = PoolStringArray(["xls", "xlsx", "xlsm", "csv"])
 	var _source_extension: String = _source_path.get_extension()
 	var _source_filename: String = _source_path.get_file().get_slice(".", 0)
 	if _source_extension in _valid_excel_extensions:
