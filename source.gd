@@ -21,3 +21,23 @@ static func Get_Files(_dir_path: String, _filter: PoolStringArray = [], _recursi
 				_current_file = _dir.get_next()
 			_dir.list_dir_end()
 	return _result
+
+# This function will convert an .rtf file to an .gd file ready to be used in Godot
+# The optional _open argument will open de output file upon completion
+static func RTF_To_GD(_path_source_file: String, _path_output_DIR: String, _open: bool) -> void:
+	var _source_file: File = File.new()
+	var _output_file: File = File.new()
+	var _source_prefix: String = "extends Node\nvar asPool: PoolStringArray = [\n"
+	var _source_suffix: String = "\n]"
+	var _output_path_file: String = _path_output_DIR.plus_file("output.gd")
+	if _source_file.open(_path_source_file, _source_file.READ) == OK:
+		if _output_file.open(_output_path_file, _source_file.WRITE) == OK:
+			_output_file.store_line(_source_prefix)
+			while not _source_file.eof_reached():
+				var _source_file_line: String = _source_file.get_line().replace(char(92), "\\\\").replace(char(34), "\\\"")
+				var _output_file_line: String = "\"" + _source_file_line + "\","
+				_output_file.store_line(_output_file_line)
+			_output_file.store_line(_source_suffix)
+			_source_file.close()
+			_output_file.close()
+			if _open: OS.shell_open(_output_path_file)
